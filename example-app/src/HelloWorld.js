@@ -21,11 +21,15 @@ class HelloWorld extends Component {
         // Tells JavaScript, any time you see a reference to "this" inside of the frenchify
         // function, please refer to ME.
         this.frenchify = this.frenchify.bind(this);
+        this.removeGreeting = this.removeGreeting.bind(this);
     }
     frenchify() {
         // setState only changes keys that are specified inside of state, it doesn't replace
         // the entire state.
         this.setState({ greeting: 'Bonjour' });
+    }
+    removeGreeting() {
+        this.props.removeGreeting(this.props.name);
     }
     render() {
         return (
@@ -33,6 +37,8 @@ class HelloWorld extends Component {
                 {this.state.greeting} {this.props.name}!
                 <br />
                 <button onClick={this.frenchify}>Frenchify!</button>
+                <br />
+                <button onClick={this.removeGreeting}>Remove Me!</button>
             </div>
         );
     }
