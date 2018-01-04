@@ -1,21 +1,38 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import Modal from './components/Modal';
 import './App.css';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
-}
+export default class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            mounted: false
+        };
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+    componentDidMount() {
+        this.setState({ mounted: false });
+    }
+    handleSubmit(e) {
+        this.setState({ mounted: false });
+        e.preventDefault();
+    }
+    render() {
+        var child;
+        if (this.state.mounted) {
+            child = (<Modal onSubmit={this.handleSubmit} />);
+        }
 
-export default App;
+        return (
+            <div className="App">
+                <ReactCSSTransitionGroup
+                    transitionName="example"
+                    transitionEnterTimeout={500}
+                    transitionLeaveTimeout={300}>
+                        {child}
+                </ReactCSSTransitionGroup>
+            </div>
+        );
+    }
+}
