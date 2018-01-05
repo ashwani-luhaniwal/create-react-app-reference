@@ -12,7 +12,8 @@ export default class App extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount() {
-        this.setState({ mounted: false });
+        console.log('Mounted');
+        this.setState({ mounted: true });
     }
     handleSubmit(e) {
         this.setState({ mounted: false });
